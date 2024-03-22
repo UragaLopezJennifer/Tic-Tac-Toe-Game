@@ -28,7 +28,7 @@ function getWinner() {
     winningCombos.forEach(function(combo, index) {
     if (board[combo[0]] && board[combo[0]] === board[combo[1]] && board[combo[0]] === board[combo[2]]) winner = board[combo[0]];
     });
-    return winner;
+    return winner ? winner : board.includes('') ? null : 'T';
 };
 
 function handleTurn(event) {
@@ -57,7 +57,7 @@ function render() {
     board.forEach(function(val, idx) {
     squares[idx].textContent = val;
     });
-    messages.textContent = `It's ${turn}'s turn!`;
+    messages.textContent = win === 'T' ? `That's a tie, queen!` : win ? `${win} wins the game!` : `It's ${turn}'s turn!`;
  };
 
  //be sure to call the init function!
