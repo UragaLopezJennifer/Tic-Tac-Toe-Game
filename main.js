@@ -4,6 +4,8 @@ let board;
 let turn = 'X';
 /*----- cached element references -----*/
 const squares = Array.from(document.querySelectorAll('#board div'));
+// new code below
+const messages = document.querySelector('h2');
 /*----- event listeners -----*/
 document.getElementById('board').addEventListener('click', handleTurn);
 /*----- functions -----*/
@@ -11,10 +13,17 @@ function handleTurn(event) {
     let idx = squares.findIndex(function(square) {
     return square === event.target;
     });
-    // new code below
     board[idx] = turn;
-    // check your console logs to make sure it's working!
-    console.log(board);
+    turn = turn === 'X' ? 'O' : 'X';
+    // In an if statement it would look like: 
+    // if (turn === 'X') {
+    // turn = 'O' 
+    // } else {
+    // turn = 'X' 
+    // };
+    // writing the ternary saved you from all that. 
+    render();
+
  };
 function init() {
     board = [
@@ -28,12 +37,12 @@ function init() {
 };
 
 function render() {
-    board.forEach(function(mark, index) {
-    //this sets the text content of the square of the same position to the mark on the board. 
-    squares[index].textContent = mark;
+    board.forEach(function(val, idx) {
+    squares[idx].textContent = val;
     });
-        
-};
+    // new code below
+    messages.textContent = `It's ${turn}'s turn!`;
+ };
 
  //be sure to call the init function!
  init();
